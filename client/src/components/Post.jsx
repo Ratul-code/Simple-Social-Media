@@ -11,10 +11,12 @@ import Axios from "../axios";
 import moment from "moment";
 import { useAuth } from "../context/AuthContext";
 import Comment from "../components/Comment";
+import BasicModal from "./Modal";
 
 const Post = ({ post,getPost }) => {
   const { user } = useAuth();
   const authToken = localStorage.getItem("authToken");
+  const [open,setOpen] = useState(false);
   const [liked, setLiked] = useState();
   const [likeCount, setLikeCount] = useState();
   const [showBtn, setShowbtn] = useState(false);
@@ -81,6 +83,7 @@ const Post = ({ post,getPost }) => {
   },[]);
   return postLoading?(<div className='w-[100%] h-[100%] flex justify-center items-center'><CircularProgress color="primary" /></div>):(
     <div className="w-[100%] p-3 flex flex-col gap-2">
+      <BasicModal open={open} setOpen={setOpen} body="Are you sure about deleting the post?" task={deletePost}/>
       <div className="w-[100%] flex justify-between pr-2">
         <div>
           <p className="text-gray-700 font-extrabold">{post?.username===user?.username?"You":post?.username}</p>
@@ -94,7 +97,7 @@ const Post = ({ post,getPost }) => {
             color="red"
             variant="contained"
             size="small"
-            onClick={deletePost}
+            onClick={()=>setOpen(prevState=>!prevState)}
           >
             Delete Post
           </Button>

@@ -33,7 +33,7 @@ export default function BasicModal({open,setOpen,title,body,task}) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h5" component="h2">
-            {title}
+            Social Media App
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 1,fontSize:"20px" }}>
            {body}
